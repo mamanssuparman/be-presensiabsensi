@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $jabatans = ['Tenaga Pendidik', 'Tenaga Kependidikan', 'Laboran', 'Pembantu Umum'];
+        for ($i = 0; $i < 4; $i++) {
+            DB::table('jabatans')->insert([
+                'jabatan'       => $jabatans[$i],
+                'keterangan'    => $jabatans[$i],
+                'statusjabatans'=> '1'
+            ]);
+        }
+        $jabatansid = ['1', '2', '3', '4'];
+        $roles = ['1', '2', '3'];
+        $faker = Factory::create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        for($i = 0; $i < 3; $i++){
+            DB::table('users')->insert([
+                'nuptk'             => $faker->unique()->numberBetween($min = 1, $max=10),
+                'nip'               => $faker->unique()->numberBetween($min = 1, $max=10),
+                'nama_lengkap'      => $faker->name,
+                'jenis_kelamin'     => 'Laki-laki',
+                'notelepon'         => $faker->phoneNumber,
+                'jabatansid'        => $jabatansid[$i],
+                'alamat'            => $faker->address,
+                'role'              => $roles[$i],
+                'fotos'             => 'default.jpg',
+                'statususers'       => '1',
+                'email'             => $faker->email,
+                'password'          => Hash::make('password')
+            ]);
+        }
     }
 }
