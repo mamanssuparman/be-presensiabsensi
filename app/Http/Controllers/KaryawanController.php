@@ -124,4 +124,17 @@ class KaryawanController extends Controller
             return ResponseFormatter::error([$error], 'Something went wrong', 500);
         }
     }
+    function changeemail(Request $request, $id){
+        try {
+            $request->validate([
+                'email'     => 'required|unique:users,email,'.Crypt::decrypt($id).',id'
+            ],[
+                'email.unique'  => 'email sudah di pergunakan'
+            ]);
+            User::where('id', Crypt::decrypt($id))->update(['email'=> $request->email]);
+            return ResponseFormatter::success([],'Email has been changed', 200);
+        } catch (\Throwable $error) {
+            return ResponseFormatter::error([$error], 'Something went wrong', 500);
+        }
+    }
 }

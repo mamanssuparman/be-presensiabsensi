@@ -119,6 +119,7 @@
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" id="email" class="form form-control">
+                                    <small class="text-danger text-xs" id="errEmail"></small>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -131,23 +132,7 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                        <form id="form-change-password">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="new_password">New Password</label>
-                                    <input type="password" name="new_password" id="new_password" class="form form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="confirm_password">Confirm Password</label>
-                                    <input type="password" name="confirm_password" id="confirm_password" class="form form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary"><span class="fa fa-save"></span>Change Password</button>
-                            </div>
-                        </form>
+                        <button class="btn btn-primary"><span class="fa fa-refresh"></span> Reset Password</button>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
@@ -219,6 +204,34 @@
             })
         }
 
+    })
+    $('#form-change-email').validate({
+        rules: {
+            'email': 'required'
+        },
+        submitHandler:function(){
+            let url = baseUrl + listRoutes['karyawan.changeemail'].replace('id', karyawanId);
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    email: $('#email').val()
+                },
+                success: function(res){
+
+                    if(res.meta.code == 500){
+                        $('#errEmail').html("email sudah dipergunakan")
+                    } else {
+                        location.reload()
+                    }
+                },
+                error: function(res){
+                    alert('gagal')
+                }
+            })
+        }
     })
     </script>
 @endpush

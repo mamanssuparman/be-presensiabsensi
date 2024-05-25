@@ -30,6 +30,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/', [KaryawanController::class, 'store'])->name('karyawan.store');
         Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
         Route::post('/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+        Route::post('/{id}/email', [KaryawanController::class, 'changeemail'])->name('karyawan.changeemail');
         Route::get('/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
         Route::get('/{id}/detail', [KaryawanController::class, 'getDetail'])->name('karyawan.detail');
     });
