@@ -24,6 +24,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -72,6 +73,15 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('') }}/assets/dist/js/demo.js"></script>
     <!-- page script -->
+    <script>
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+        var baseUrl = "{{ url('/') }}" + '/'
+        var listRoutes = JSON.parse('{{ json_decode(listRoutes()) }}')
+    </script>
     @stack('externaljs')
 </body>
 

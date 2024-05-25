@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -21,4 +22,14 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+    //Route Karyawan
+    Route::prefix('karyawan')->group(function(){
+        Route::get('/', [KaryawanController::class, 'index'])->name('karyawan.index');
+        Route::get('/getData', [KaryawanController::class, 'getData'])->name('karyawan.getData');
+        Route::get('/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+        Route::post('/', [KaryawanController::class, 'store'])->name('karyawan.store');
+        Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+        Route::patch('/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+        Route::get('/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
+    });
 });
