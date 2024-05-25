@@ -36,8 +36,8 @@
                     <i class="fa fa-users"></i> <span>Karyawan</span>
                 </a>
             </li>
-            <li>
-                <a href="">
+            <li class="{{ Route::currentRouteName() == 'jabatan.index' ? 'active' : '' }}">
+                <a href="{{ route('jabatan.index') }}">
                     <i class="fa fa-graduation-cap"></i> <span>Jabatan</span>
                 </a>
             </li>

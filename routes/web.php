@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 
@@ -33,5 +34,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/{id}/email', [KaryawanController::class, 'changeemail'])->name('karyawan.changeemail');
         Route::get('/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
         Route::get('/{id}/detail', [KaryawanController::class, 'getDetail'])->name('karyawan.detail');
+    });
+    Route::get('/logout', [AuthController::class, 'logout'])->name('signout');
+
+    //Route Jabatans
+    Route::prefix('jabatan')->group(function(){
+        Route::get('/', [JabatanController::class, 'index'])->name('jabatan.index');
+        Route::get('/getData', [JabatanController::class, 'getData'])->name('jabatan.getData');
+        Route::post('/', [JabatanController::class, 'store'])->name('jabatan.store');
+        Route::get('/{id}', [JabatanController::class, 'show'])->name('jabatan.show');
+        Route::post('/{id}', [JabatanController::class, 'update'])->name('jabatan.update');
     });
 });
