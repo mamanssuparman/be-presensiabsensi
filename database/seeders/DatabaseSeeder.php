@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         for($i = 0; $i < 3; $i++){
             DB::table('users')->insert([
-                'nuptk'             => $faker->unique()->numberBetween($min = 1, $max=10),
-                'nip'               => $faker->unique()->numberBetween($min = 1, $max=10),
+                'nuptk'             => $faker->unique()->numberBetween($min = 1, $max=99999),
+                'nip'               => $faker->unique()->numberBetween($min = 1, $max=99999),
                 'nama_lengkap'      => $faker->name,
                 'jenis_kelamin'     => 'Laki-laki',
                 'notelepon'         => $faker->phoneNumber,
