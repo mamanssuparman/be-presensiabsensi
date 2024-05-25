@@ -14,7 +14,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ url('') }}/assets/dist/img/user2-160x160.jpg" class="user-image"
                         alt="User Image">
-                    <span class="hidden-xs">Alexander Pierce</span>
+                    <span class="hidden-xs">{{ auth()->user()->nama_lengkap }}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
@@ -23,8 +23,8 @@
                             alt="User Image">
 
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            {{ auth()->user()->nama_lengkap }}
+                            <small>{{ auth()->user()->jabatan->jabatan }}</small>
                         </p>
                     </li>
                     <!-- Menu Footer-->
@@ -33,7 +33,7 @@
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            <a href="{{ route('signout') }}" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                     </li>
                 </ul>
