@@ -31,5 +31,6 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
         Route::patch('/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
         Route::get('/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
+        Route::get('/{id}/detail', [KaryawanController::class, 'getDetail'])->name('karyawan.detail');
     });
 });

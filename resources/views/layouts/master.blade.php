@@ -49,8 +49,8 @@
             <!-- Content Header (Page header) -->
             @include('includes.contentheader')
             <!-- Main content -->
-            @yield('content')
             <!-- /.content -->
+            @yield('content')
         </div>
         <!-- /.content-wrapper -->
         @include('includes.footer')

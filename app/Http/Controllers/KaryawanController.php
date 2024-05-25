@@ -21,9 +21,7 @@ class KaryawanController extends Controller
         return DataTables::of($karyawan)
             ->addColumn('action', function ($row) {
                 $nama=$row->name;
-                $html ='<a href="" class="btn btn-success btn-xs" title="Edit Karyawan"><span class="fa fa-edit"></span>';
-                $html .= '</a> &nbsp;';
-                $html .= '<a href="'.route('karyawan.show',['id'=> Crypt::encrypt($row->id)]).'" class="btn btn-primary btn-xs" title="Detail Karyawan"><span class="fa fa-eye"></span>';
+                $html = '<a href="'.route('karyawan.show',['id'=> Crypt::encrypt($row->id)]).'" class="btn btn-primary btn-xs" title="Detail Karyawan"><span class="fa fa-eye"></span>';
                 $html .= '</a>';
                 return $html;
             })
@@ -88,6 +86,14 @@ class KaryawanController extends Controller
         }
     }
     function show(Request $request, $id){
-
+        $data = [
+            'jabatan'       => Jabatan::all()
+        ];
+        return view('pages.karyawan.show', $data);
+    }
+    function getDetail($id){
+        return ResponseFormatter::success([
+            User::with(['jabatan'])->where('id', Crypt::decrypt($id))->first()
+        ], 'Get data successfuly', 200);
     }
 }
