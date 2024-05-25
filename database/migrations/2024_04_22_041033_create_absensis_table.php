@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pegawais_id');
             $table->unsignedBigInteger('masterabsensis_id')->comment('Berelasi dengan master induk absensis');
-            $table->unsignedBigInteger('masterkalenders_id')->comment('Untuk menentukan ketentuan absensi setiap bulannya');
             $table->date('tgl_absensi');
             $table->time('waktu_masuk');
             $table->time('waktu_keluar')->nullable();
