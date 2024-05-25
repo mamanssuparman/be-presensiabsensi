@@ -24,4 +24,10 @@ class AuthController extends Controller
         }
         return redirect()->back()->with('error', 'Username atau Password Salah !,pastikan akun anda aktif');
     }
+
+    function logout(Request $request){
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect('/');
+    }
 }
