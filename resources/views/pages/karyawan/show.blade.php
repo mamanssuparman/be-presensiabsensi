@@ -40,6 +40,7 @@
                 <div class="tab-content">
                     <div class="active tab-pane" id="activity">
                         <form id="form-update-profile">
+                            @csrf
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="nip">NIP</label>
@@ -61,8 +62,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jenis Kelamin</label> <br>
-                                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_laki"> Laki-laki
-                                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_peremapun"> Perempuan
+                                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki"> Laki-laki
+                                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_peremapun" value="Perempuan"> Perempuan
                                 </div>
                             </div>
                             <div class="col-12">
@@ -188,6 +189,36 @@
         $('#email').val(res.data[0].email)
     }).fail(function(res){
         alert('Gagal mengambil data')
+    })
+    $('#form-update-profile').validate({
+        rules:{
+            'nip': 'required',
+            'nuptk': 'required',
+            'nama_lengkap': 'required',
+            'nomor_telepon': 'required',
+            'jabatan': 'required',
+            'alamat': 'required',
+            'role': 'required'
+        },
+        submitHandler: function(){
+            var url = baseUrl + listRoutes['karyawan.update'].replace('id', karyawanId);
+            // var dataUpdate = new FormData($('#form-update-profile')[0]);
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: "JSON",
+                data: new FormData($('#form-update-profile')[0]),
+                processData: false,
+                contentType: false,
+                success: function(res){
+                    location.reload()
+                },
+                error: function(res){
+                    alert('gagal')
+                }
+            })
+        }
+
     })
     </script>
 @endpush

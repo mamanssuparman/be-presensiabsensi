@@ -96,4 +96,32 @@ class KaryawanController extends Controller
             User::with(['jabatan'])->where('id', Crypt::decrypt($id))->first()
         ], 'Get data successfuly', 200);
     }
+    function update(Request $request, $id){
+        try {
+            $request->validate([
+                'nip'               => 'required|unique:users,nip,'.Crypt::decrypt($id).',id',
+                'nuptk'             => 'required|unique:users,nuptk,'.Crypt::decrypt($id).',id',
+                'nama_lengkap'      => 'required',
+                'nomor_telepon'     => 'required|unique:users,notelepon,'.Crypt::decrypt($id).',id',
+                'jabatan'           => 'required',
+                'alamat'            => 'required',
+                'role'              => 'required'
+            ]);
+            $credentials = [
+                'nip'           => $request->nip,
+                'nuptk'         => $request->nuptk,
+                'nama_lengkap'  => $request->nama_lengkap,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'notelepon'     => $request->nomor_telepon,
+                'jabatansid'    => $request->jabatan,
+                'alamat'        => $request->alamat,
+                'role'          => $request->role,
+                'statususers'   => $request->statususer
+            ];
+            User::where('id', Crypt::decrypt($id))->update($credentials);
+            return ResponseFormatter::success([], 'Update profile berhasil ', 200);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([$error], 'Something went wrong', 500);
+        }
+    }
 }
