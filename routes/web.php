@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 
@@ -44,5 +45,14 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/', [JabatanController::class, 'store'])->name('jabatan.store');
         Route::get('/{id}', [JabatanController::class, 'show'])->name('jabatan.show');
         Route::post('/{id}', [JabatanController::class, 'update'])->name('jabatan.update');
+    });
+    //Route Kalenders
+    Route::prefix('kalender')->group(function(){
+        Route::get('/', [KalenderController::class, 'index'])->name('kalender.index');
+        Route::get('/getData', [KalenderController::class, 'getData'])->name('kalender.getData');
+        Route::post('/', [KalenderController::class, 'store'])->name('kalender.store');
+        Route::get('/{id}', [KalenderController::class, 'show'])->name('kalender.show');
+        Route::post('/{id}', [KalenderController::class, 'update'])->name('kalender.update');
+        Route::post('/{id}/default', [KalenderController::class, 'defaultkalender'])->name('kalender.default');
     });
 });

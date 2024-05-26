@@ -41,8 +41,8 @@
                     <i class="fa fa-graduation-cap"></i> <span>Jabatan</span>
                 </a>
             </li>
-            <li>
-                <a href="">
+            <li class="{{ Route::currentRouteName() == 'kalender.index' ? 'active' : '' }}">
+                <a href="{{ route('kalender.index') }}">
                     <i class="fa fa-calendar"></i> <span>Kalender</span>
                 </a>
             </li>
