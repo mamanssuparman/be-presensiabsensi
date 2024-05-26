@@ -29,7 +29,8 @@
         },
         "files": [
             "app/Helper/ResponseFormatter.php",
-            "app/Helper/Helpers.php"
+            "app/Helper/Helpers.php",
+            "app/Helper/BulanHelpers.php"
         ]
     },
     "autoload-dev": {
