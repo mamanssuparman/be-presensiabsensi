@@ -47,8 +47,8 @@
                 </a>
             </li>
             <li class="header">ABSENSI</li>
-            <li>
-                <a href="">
+            <li class="{{ Route::currentRouteName() == 'kehadiran.index' ? 'active' : '' }}">
+                <a href="{{ route('kehadiran.index') }}">
                     <i class="fa fa-exchange"></i> <span>Kehadiran</span>
                 </a>
             </li>

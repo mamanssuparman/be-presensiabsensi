@@ -6,6 +6,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KehadiranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,5 +55,14 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/{id}', [KalenderController::class, 'show'])->name('kalender.show');
         Route::post('/{id}', [KalenderController::class, 'update'])->name('kalender.update');
         Route::post('/{id}/default', [KalenderController::class, 'defaultkalender'])->name('kalender.default');
+    });
+    //Route Kehadiran
+    Route::prefix('kehadiran')->group(function(){
+        Route::get('/', [KehadiranController::class, 'index'])->name('kehadiran.index');
+        Route::get('/getData', [KehadiranController::class, 'getData'])->name('kehadiran.getData');
+        // Route::post('/', [KehadiranController::class, 'store'])->name('kehadiran.store');
+        Route::get('/{id}', [KehadiranController::class, 'show'])->name('kehadiran.show');
+        Route::post('/{id}', [KehadiranController::class, 'update'])->name('kehadiran.update');
+        Route::get('{id}/detail', [KehadiranController::class, 'detail'])->name('kehadiran.detail');
     });
 });
