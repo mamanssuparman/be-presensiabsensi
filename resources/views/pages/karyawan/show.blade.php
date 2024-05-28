@@ -196,7 +196,8 @@
                 processData: false,
                 contentType: false,
                 success: function(res){
-                    location.reload()
+                    console.log(res)
+                    // location.reload()
                 },
                 error: function(res){
                     alert('gagal')

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Ajuan;
 use App\Models\Jabatan;
 use App\Models\Kehadiran;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,5 +61,9 @@ class User extends Authenticatable
 
     public function kehadiran(){
         return $this->hasMany(Kehadiran::class, 'pegawais_id', 'id');
+    }
+
+    public function ajuans(){
+        return $this->hasMany(Ajuan::class, 'pegawais_id', 'id');
     }
 }
