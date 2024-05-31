@@ -96,10 +96,40 @@ class AuthController extends Controller
                         ->get();
         $absenToday = Kehadiran::whereDate('tgl_absensi', $tanggalSekarang)->where('pegawais_id', auth()->user()->id)->get();
         $masterAbsensi = MasterAbsensi::first();
+        $totalSakit = DB::table('ajuans')
+                        ->select('pegawais_id', DB::raw('count(*) as total_sakit'))
+                        ->whereMonth('tanggal_awal', $bulan)
+                        ->whereYear('tanggal_awal', $tahun)
+                        ->where('pegawais_id', auth()->user()->id)
+                        ->where('statusajuan', '2')
+                        ->where('jenis_ajuans', '1')
+                        ->groupBy('pegawais_id')
+                        ->get();
+        $totalIzin = DB::table('ajuans')
+                        ->select('pegawais_id', DB::raw('count(*) as total_izin'))
+                        ->whereMonth('tanggal_awal', $bulan)
+                        ->whereYear('tanggal_awal', $tahun)
+                        ->where('pegawais_id', auth()->user()->id)
+                        ->where('statusajuan', '2')
+                        ->where('jenis_ajuans', '2')
+                        ->groupBy('pegawais_id')
+                        ->get();
+        $totalDinasLuar = DB::table('ajuans')
+                        ->select('pegawais_id', DB::raw('count(*) as total_dinasluar'))
+                        ->whereMonth('tanggal_awal', $bulan)
+                        ->whereYear('tanggal_awal', $tahun)
+                        ->where('pegawais_id', auth()->user()->id)
+                        ->where('statusajuan', '2')
+                        ->where('jenis_ajuans', '3')
+                        ->groupBy('pegawais_id')
+                        ->get();
         return ResponseFormatter::success([
             'user'              => $user,
             'masterkalenders'   => $masterkalender,
             'totalabsensi'      => $totalAbsensi,
+            'totalsakit'        => $totalSakit,
+            'totalizin'         => $totalIzin,
+            'totaldinasluar'    => $totalDinasLuar,
             'absentoday'        => $absenToday,
             'masterabsensi'     => $masterAbsensi
         ]);
