@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Kalender;
 use App\Models\Kehadiran;
 use Illuminate\Http\Request;
+use App\Models\MasterAbsensi;
 use App\Helper\ResponseFormatter;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -94,11 +95,13 @@ class AuthController extends Controller
                         ->groupBy('pegawais_id')
                         ->get();
         $absenToday = Kehadiran::whereDate('tgl_absensi', $tanggalSekarang)->where('id', auth()->user()->id)->get();
+        $masterAbsensi = MasterAbsensi::first();
         return ResponseFormatter::success([
             'user'              => $user,
             'masterkalenders'   => $masterkalender,
             'totalabsensi'      => $totalAbsensi,
-            'absentoday'        => $absenToday
+            'absentoday'        => $absenToday,
+            'masterabsensi'     => $masterAbsensi
         ]);
     }
 
