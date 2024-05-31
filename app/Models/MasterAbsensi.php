@@ -17,7 +17,8 @@ class MasterAbsensi extends Model
         'jam_keluar',
         'max_alpha',
         'max_terlambat',
-        'masterkalenders_id'
+        'masterkalenders_id',
+        'jarakabsen'
     ];
     protected $table = 'masterabsensis';
     public function kehadirans(){

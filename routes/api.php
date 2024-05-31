@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\AbsenController;
 use App\Http\Controllers\API\AjuanController;
 
 /*
@@ -31,4 +32,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('ajukanizinsakit', [AjuanController::class, 'ajukanizinsakit']);
     Route::post('ajukandinasluar', [AjuanController::class, 'ajukandinasluar']);
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::post('absenmasuk', [AbsenController::class, 'absenmasuk']);
+    Route::post('absenkeluar', [AbsenController::class, 'absenkeluar']);
 });

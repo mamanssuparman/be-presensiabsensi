@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('jam_keluar');
             $table->integer('max_alpha')->default(3);
             $table->integer('max_terlambat')->default(20)->comment('waktu maximal terlambat dihitung pakai menit');
+            $table->integer('jarakabsen')->default(50);
             $table->unsignedBigInteger('masterkalenders_id')->comment('Untuk menentukan ketentuan absensi setiap bulannya');
             $table->timestamps();
         });

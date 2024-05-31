@@ -24,6 +24,8 @@ return new class extends Migration
             $table->text('latitude_keluar')->nullable()->comment('untuk mendapatkan latitude pada saat absensi keluar');
             $table->text('longitude_keluar')->nullable()->comment('untuk mendapatkan longitude pada saat absensi keluar');
             $table->text('foto_keluar')->nullable()->comment('untuk mendapatkan foto pada saat absensi keluar');
+            $table->double('jarak_absen_masuk')->comment('Untuk menyimpan jarak absen masuk');
+            $table->double('jarak_absen_keluar')->nullable()->comment('Untuk menyimpan jarak absen keluar');
             $table->timestamps();
         });
     }

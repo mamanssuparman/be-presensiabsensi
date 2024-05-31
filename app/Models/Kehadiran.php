@@ -22,6 +22,8 @@ class Kehadiran extends Model
         'latitude_keluar',
         'longitude_keluar',
         'foto_keluar',
+        'jarak_absen_masuk',
+        'jarak_absen_keluar'
     ];
     protected $table = 'absensis';
     public function user(){

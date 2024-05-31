@@ -30,7 +30,8 @@
         "files": [
             "app/Helper/ResponseFormatter.php",
             "app/Helper/Helpers.php",
-            "app/Helper/BulanHelpers.php"
+            "app/Helper/BulanHelpers.php",
+            "app/Helper/DistanceHelper.php"
         ]
     },
     "autoload-dev": {
