@@ -94,7 +94,7 @@ class AuthController extends Controller
                         ->where('pegawais_id', auth()->user()->id)
                         ->groupBy('pegawais_id')
                         ->get();
-        $absenToday = Kehadiran::whereDate('tgl_absensi', $tanggalSekarang)->where('id', auth()->user()->id)->get();
+        $absenToday = Kehadiran::whereDate('tgl_absensi', $tanggalSekarang)->where('pegawais_id', auth()->user()->id)->get();
         $masterAbsensi = MasterAbsensi::first();
         return ResponseFormatter::success([
             'user'              => $user,
@@ -109,5 +109,21 @@ class AuthController extends Controller
     public function logout(Request $request){
         $token = $request->user()->currentAccessToken()->delete();
         return ResponseFormatter::success([$token], 'Token Revoked');
+    }
+
+    public function changepassword(Request $request){
+        try {
+            $request->validate([
+                'newpassword'       => 'required',
+                'confirmpassword'   => 'required|same:newpassword'
+            ]);
+            $data = [
+                'password'      => Hash::make($request->newpassword)
+            ];
+            User::where('id', auth()->user()->id)->update($data);
+            return ResponseFormatter::success([],'Password has been changed');
+        } catch (Exception $error) {
+            return ResponseFormatter::error([$error], 'Something went wrong', 500);
+        }
     }
 }

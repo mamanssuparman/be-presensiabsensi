@@ -75,4 +75,11 @@ class AjuanController extends Controller
             return ResponseFormatter::error([$error], 'Something went wrong', 500);
         }
     }
+    public function getdetailizinsakit(Request $request){
+        try {
+            return ResponseFormatter::success([Ajuan::where('pegawais_id', auth()->user()->id)->where('id', $request->id)->first()],'berhasil mengambil detail ajuan');
+        } catch (Exception $error) {
+            return ResponseFormatter::error([$error], 'Something went wrong',500);
+        }
+    }
 }
