@@ -47,8 +47,8 @@
                         <h3 class="text-center">Absen Masuk </h3>
                         <div class="row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <img class="profile-user-img img-responsive" src="{{ asset('storage/users/default.jpg') }}"
-                                    alt="User profile picture">
+                                <img class="profile-user-img img-responsive" src=""
+                                    alt="User profile picture" id="fotoabsenmasuk">
                             </div>
                             <div class="col-md-8 col-lg-8 col-sm-12">
                                 <div class="row">
@@ -59,7 +59,7 @@
                                     <div class="col-md-4 col-sm-12">Latitude</div>
                                     <div class="col-md-6 col-sm-12" id="latMasuk"></div>
                                     <div class="col-md-4 col-sm-12">Jarak</div>
-                                    <div class="col-md-6 col-sm-12">500 m</div>
+                                    <div class="col-md-6 col-sm-12" id="jarakmasuk"></div>
                                 </div>
                             </div>
                         </div>
@@ -69,8 +69,8 @@
                         <h3 class="text-center">Absen Keluar </h3>
                         <div class="row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <img class="profile-user-img img-responsive" src="{{ asset('storage/users/default.jpg') }}"
-                                    alt="User profile picture">
+                                <img class="profile-user-img img-responsive" src=""
+                                    alt="User profile picture" id="fotoabsenkeluar">
                             </div>
                             <div class="col-md-8 col-lg-8 col-sm-12">
                                 <div class="row">
@@ -81,7 +81,7 @@
                                     <div class="col-md-4 col-sm-12">Latitude</div>
                                     <div class="col-md-6 col-sm-12" id="latKeluar"></div>
                                     <div class="col-md-4 col-sm-12">Jarak</div>
-                                    <div class="col-md-6 col-sm-12">500 m</div>
+                                    <div class="col-md-6 col-sm-12" id="jarakkeluar"></div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
     <script>
         let base = new URL(window.location.href);
         var storagePath = "{!! asset('storage/users/') !!}";
-        var storageAbsen = "{!! asset('storage/absen/') !!}"
+        var storageAbsen = "{!! asset('storage/absenmasuk/') !!}"
         let path = base.pathname;
         let segment = path.split("/");
         let kehadiranId = segment["2"];
@@ -122,7 +122,8 @@
             $('#waktuMasuk').html(data.waktu_masuk);
             $('#longMasuk').html(data.longitude_masuk);
             $('#latMasuk').html(data.longitude_masuk);
-
+            $('#jarakmasuk').html(Math.round(data.jarak_absen_masuk) + ' m');
+            $('#fotoabsenmasuk').prop('src', storageAbsen+'/'+data.foto_masuk);
             if(data.waktu_keluar == null){
                 $('#waktuKeluar').html('-')
             } else {
@@ -137,6 +138,16 @@
                 $('#latKeluar').html('-')
             } else {
                 $('#latKeluar').html(data.latitude_keluar);
+            }
+            if(data.jarak_absen_keluar == null){
+                $('#jarakkeluar').html('-')
+            } else {
+                $('#jarakkeluar').html(Math.round(data.jarak_absen_keluar))
+            }
+            if(data.foto_keluar == null){
+                $('#fotoabsenkeluar').addClass('hidden')
+            } else {
+                $('#fotoabsenkeluar').prop('src', storageAbsen+'/'+data.foto_keluar)
             }
         }
     </script>
