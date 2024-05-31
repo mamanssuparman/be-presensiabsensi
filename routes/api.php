@@ -35,4 +35,5 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('absenmasuk', [AbsenController::class, 'absenmasuk']);
     Route::post('absenkeluar', [AbsenController::class, 'absenkeluar']);
+    Route::get('getlistabsentoday', [AbsenController::class, 'getlistabsentoday']);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
 use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 use App\Models\MasterAbsensi;
@@ -103,5 +104,17 @@ class AbsenController extends Controller
         } catch(ValidasiException $e){
             return ResponseFormatter::error([$e->render('Pesan')], 'Something went wrong', 500);
         }
+    }
+
+    public function getlistabsentoday(Request $request){
+
+        // $data = User::with(['kehadiran'])->whereHas('kehadiran', function($query){
+        //     $query->where('tgl_absensi', date('Y-m-d'));
+        // })->get();
+        $tanggal = date('Y-m-d');
+        $data = User::with(['kehadiran'=> function($query) use ($tanggal){
+            $query->where('tgl_absensi', $tanggal);
+        }])->get();
+        return ResponseFormatter::success([$data], 'Get data successfuly');
     }
 }
