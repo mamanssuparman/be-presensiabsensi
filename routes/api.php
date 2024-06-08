@@ -38,4 +38,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('getdetailizinsakit', [AjuanController::class,'getdetailizinsakit']);
     Route::post('changepassword', [AuthController::class, 'changepassword']);
     Route::get('getlistabsentoday', [AbsenController::class, 'getlistabsentoday']);
+    Route::get('getcalender', [AbsenController::class, 'getcalender']);
 });

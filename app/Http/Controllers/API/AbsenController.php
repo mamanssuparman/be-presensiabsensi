@@ -128,4 +128,11 @@ class AbsenController extends Controller
         }])->get();
         return ResponseFormatter::success([$data], 'Get data successfuly');
     }
+
+    public function getcalender(Request $request){
+        date_default_timezone_set('Asia/Jakarta');
+        $tanggal = date('m');
+        $dataKalender = Kehadiran::where('pegawais_id', auth()->user()->id)->whereMonth('tgl_absensi', $tanggal)->get();
+        return ResponseFormatter::success([$dataKalender], 'get data successfuly');
+    }
 }
