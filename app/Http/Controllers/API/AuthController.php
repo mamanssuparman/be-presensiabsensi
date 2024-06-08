@@ -125,6 +125,40 @@ class AuthController extends Controller
                         ->where('jenis_ajuans', '3')
                         ->groupBy('pegawais_id')
                         ->get();
+        $totalAbsensiBulanLalu = DB::table('absensis')
+                                ->select('pegawais_id', DB::raw('COUNT(*) as total_absensi'))
+                                ->whereMonth('tgl_absensi', $bulan-1)
+                                ->whereYear('tgl_absensi', $tahun)
+                                ->where('pegawais_id', auth()->user()->id)
+                                ->groupBy('pegawais_id')
+                                ->get();
+        $totalSakitBulanLalu = DB::table('ajuans')
+                                ->select('pegawais_id', DB::raw('count(*) as total_sakit'))
+                                ->whereMonth('tanggal_awal', $bulan-1)
+                                ->whereYear('tanggal_awal', $tahun)
+                                ->where('pegawais_id', auth()->user()->id)
+                                ->where('statusajuan', '2')
+                                ->where('jenis_ajuans', '1')
+                                ->groupBy('pegawais_id')
+                                ->get();
+        $totalIzinBulanLalu = DB::table('ajuans')
+                        ->select('pegawais_id', DB::raw('count(*) as total_izin'))
+                        ->whereMonth('tanggal_awal', $bulan-1)
+                        ->whereYear('tanggal_awal', $tahun)
+                        ->where('pegawais_id', auth()->user()->id)
+                        ->where('statusajuan', '2')
+                        ->where('jenis_ajuans', '2')
+                        ->groupBy('pegawais_id')
+                        ->get();
+        $totalDinasLuarBulanLalu = DB::table('ajuans')
+                                ->select('pegawais_id', DB::raw('count(*) as total_dinasluar'))
+                                ->whereMonth('tanggal_awal', $bulan)
+                                ->whereYear('tanggal_awal', $tahun)
+                                ->where('pegawais_id', auth()->user()->id)
+                                ->where('statusajuan', '2')
+                                ->where('jenis_ajuans', '3')
+                                ->groupBy('pegawais_id')
+                                ->get();
         return ResponseFormatter::success([
             'user'              => $user,
             'masterkalenders'   => $masterkalender,
@@ -133,7 +167,11 @@ class AuthController extends Controller
             'totalizin'         => $totalIzin,
             'totaldinasluar'    => $totalDinasLuar,
             'absentoday'        => $absenToday,
-            'masterabsensi'     => $masterAbsensi
+            'masterabsensi'     => $masterAbsensi,
+            'totalabsensiblalu' => $totalAbsensiBulanLalu,
+            'totalsakitblalu'   => $totalSakitBulanLalu,
+            'totalizinblalu'    => $totalIzinBulanLalu,
+            'totaldinasluarblalu'=> $totalDinasLuarBulanLalu
         ]);
     }
 
