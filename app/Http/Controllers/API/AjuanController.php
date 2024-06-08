@@ -82,4 +82,12 @@ class AjuanController extends Controller
             return ResponseFormatter::error([$error], 'Something went wrong',500);
         }
     }
+    public function cancelajuan(Request $request){
+        try {
+            Ajuan::where('id', $request->id)->delete();
+            return ResponseFormatter::success([], 'Data ajuan berhasil di cancel');
+        } catch (\Throwable $th) {
+            return ResponseFormatter::error([$error], 'Something went wrong',500);
+        }
+    }
 }
