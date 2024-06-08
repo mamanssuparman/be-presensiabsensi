@@ -52,8 +52,8 @@
                     <i class="fa fa-exchange"></i> <span>Kehadiran</span>
                 </a>
             </li>
-            <li>
-                <a href="">
+            <li class="{{ Route::currentRouteName() == 'ajuan.index' ? 'active' : '' }}">
+                <a href="{{ route('ajuan.index') }}">
                     <i class="fa fa-newspaper-o"></i> <span>Ajuan Karyawan</span>
                 </a>
             </li>

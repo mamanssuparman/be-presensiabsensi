@@ -22,9 +22,11 @@ class AuthController extends Controller
                 'username'      => 'required',
                 'password'      => 'required'
             ]);
+            $role = $request->merge(['role'=> '3']);
             $credentials = [
                 'email'     => $request->username,
-                'password'  => $request->password
+                'password'  => $request->password,
+                'role'      => $role
             ];
             if(!Auth::attempt($credentials)){
                 return ResponseFormatter::error([

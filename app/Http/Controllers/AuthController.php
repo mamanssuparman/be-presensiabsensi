@@ -16,8 +16,8 @@ class AuthController extends Controller
             'email'     => 'required',
             'password'  => 'required'
         ]);
-        $request->merge(['statususers' => '1']);
-        $credentials = $request->only('email', 'password', 'statususers');
+        $request->merge(['statususers' => '1', 'isadmin' => '1']);
+        $credentials = $request->only('email', 'password', 'statususers', 'isadmin');
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'));

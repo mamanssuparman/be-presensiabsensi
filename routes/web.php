@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\KaryawanController;
@@ -64,5 +65,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/{id}', [KehadiranController::class, 'show'])->name('kehadiran.show');
         Route::post('/{id}', [KehadiranController::class, 'update'])->name('kehadiran.update');
         Route::get('{id}/detail', [KehadiranController::class, 'detail'])->name('kehadiran.detail');
+    });
+
+    //Route Ajuans
+    Route::prefix('ajuan')->group(function(){
+        Route::get('/', [AjuanController::class, 'index'])->name('ajuan.index');
+        Route::get('/getData', [AjuanController::class, 'getData'])->name('ajuan.getData');
+        // Route::post('/', [AjuanController::class, 'store'])->name('ajuan.store');
+        Route::get('/{id}', [AjuanController::class, 'show'])->name('ajuan.show');
+        Route::post('/{id}', [AjuanController::class, 'update'])->name('ajuan.update');
+        Route::get('{id}/detail', [AjuanController::class, 'detail'])->name('ajuan.detail');
     });
 });

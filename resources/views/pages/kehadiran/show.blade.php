@@ -60,6 +60,8 @@
                                     <div class="col-md-6 col-sm-12" id="latMasuk"></div>
                                     <div class="col-md-4 col-sm-12">Jarak</div>
                                     <div class="col-md-6 col-sm-12" id="jarakmasuk"></div>
+                                    <div class="col-md-4 col-sm-12">Status</div>
+                                    <div class="col-md-6 col-sm-12" id="status_absen"></div>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +121,11 @@
             $('#imgUser').prop('src', storagePath+'/'+data.fotos)
         }
         function getAbsensi(data){
+            console.log(data)
             $('#waktuMasuk').html(data.waktu_masuk);
             $('#longMasuk').html(data.longitude_masuk);
-            $('#latMasuk').html(data.longitude_masuk);
+            $('#latMasuk').html(data.latitude_masuk);
+            $('#status_absen').html(data.status_absen_masuk);
             $('#jarakmasuk').html(Math.round(data.jarak_absen_masuk) + ' m');
             $('#fotoabsenmasuk').prop('src', storageAbsen+'/'+data.foto_masuk);
             if(data.waktu_keluar == null){

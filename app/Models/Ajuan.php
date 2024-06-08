@@ -17,10 +17,11 @@ class Ajuan extends Model
         'tujuan',
         'lampiran',
         'statusajuan',
-        'alasan'
+        'alasan',
+        'alasantolak'
     ];
     protected $table = 'ajuans';
     public function user(){
-        return $this->belonsgTo(User::class, 'pegawais_id', 'id');
+        return $this->belongsTo(User::class, 'pegawais_id', 'id');
     }
 }
