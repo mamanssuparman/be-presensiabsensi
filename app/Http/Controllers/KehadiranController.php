@@ -40,13 +40,33 @@ class KehadiranController extends Controller
                 return $dataPegawai;
             })
             ->addColumn('action', function($row){
-                // $nama=$row->name;
-                $html = '<a href="'.route('kehadiran.show',['id'=> Crypt::encrypt($row->id)]).'" class="btn btn-primary btn-xs" title="Detail Absensis"><span class="fa fa-eye"></span>';
-                $html .= '</a>';
+                if($row->ajuans_id == null){
+                    // $nama=$row->name;
+                    $html = '<a href="'.route('kehadiran.show',['id'=> Crypt::encrypt($row->id)]).'" class="btn btn-primary btn-xs" title="Detail Absensis"><span class="fa fa-eye"></span>';
+                    $html .= '</a>';
+                }else{
+                    $html ='';
+                }
                 return $html;
             })
+            ->editColumn('jenis_ajuans', function($row){
+                $jenis_ajuans = $row->jenis_ajuans;
+                if($jenis_ajuans == '1'){
+                    $html = '<span class="label label-primary">Sakit</span>';
+                }elseif($jenis_ajuans == '2'){
+                    $html = '<span class="label label-success">Izin</span>';
+                }elseif($jenis_ajuans == '3'){
+                    $html = '<span class="label label-warning">Dinas Luar</span>';
+                }else{
+                    $html = '<span class="label label-primary">Hadir</span>';
+                }
+                $htmlx = '<div>';
+                $htmlx .= $html;
+                $htmlx .= '</div>';
+                return $htmlx;
+            })
             ->addIndexColumn()
-            ->rawColumns(['status', 'nama_pegawai', 'fotos', 'action'])
+            ->rawColumns(['status', 'nama_pegawai', 'fotos', 'action', 'jenis_ajuans'])
             ->make(true);
     }
     function show($id){

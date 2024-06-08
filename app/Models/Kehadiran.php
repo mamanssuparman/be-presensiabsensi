@@ -26,7 +26,9 @@ class Kehadiran extends Model
         'jarak_absen_keluar',
         'master_waktu_masuk',
         'master_waktu_keluar',
-        'status_absen_masuk'
+        'status_absen_masuk',
+        'ajuans_id',
+        'jenis_ajuans'
     ];
     protected $table = 'absensis';
     public function user(){

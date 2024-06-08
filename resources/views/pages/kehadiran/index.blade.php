@@ -32,6 +32,7 @@
                             <th>Tanggal Kehadiran</th>
                             <th>Jam Masuk</th>
                             <th>Jam Keluar</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -75,6 +76,10 @@
                     {
                         data: 'waktu_keluar',
                         name: 'waktu_keluar',
+                    },
+                    {
+                        data: 'jenis_ajuans',
+                        name: 'jenis_ajuans',
                     },
                     {
                         data: 'action',

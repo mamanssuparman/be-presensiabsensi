@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Ajuan;
+use App\Models\Kehadiran;
 use Illuminate\Http\Request;
+use App\Models\MasterAbsensi;
 use Yajra\DataTables\DataTables;
 use App\Helper\ResponseFormatter;
 use Illuminate\Support\Facades\Crypt;
@@ -72,6 +75,7 @@ class AjuanController extends Controller
     }
     function update(Request $request, $id){
         try {
+            $masterAbsensi = MasterAbsensi::first();
             $data = [
                 'statusajuan'       => $request->status,
                 'alasantolak'       => NULL
@@ -79,8 +83,35 @@ class AjuanController extends Controller
             if($request->status == '3'){
                 $data['alasantolak']=$request->alasan;
             }
+            //jika ajuan berhasil di approve
+            if($request->status == '2'){
+                $idAjuan = Ajuan::where('id', Crypt::decrypt($id))->first();
+                $tanggalAwal    = Carbon::createFromFormat('Y-m-d', $idAjuan->tanggal_awal);
+                $tanggalAkhir   = Carbon::createFromFormat('Y-m-d', $idAjuan->tanggal_akhir);
+                $selisihHari    = $tanggalAwal->diffInDays($tanggalAkhir) + 1;
+                $daftarTanggal = [];
+                // loop data tanggal
+                $dataAbsensi=[];
+                for ($i=0; $i < $selisihHari ; $i++) {
+                    $tanggalBaru = clone $tanggalAwal;
+                    $tanggalBaru->modify("+$i days");
+                    $daftarTanggal[]=$tanggalBaru->format('Y-m-d');
+                    // foreach ($daftarTanggal as $tanggal) {
+                        $dataAbsensi[]=[
+                            'pegawais_id'       => $idAjuan->pegawais_id,
+                            'masterabsensis_id' => $masterAbsensi->id,
+                            'tgl_absensi'       => $daftarTanggal[$i],
+                            'ajuans_id'         => $idAjuan->id,
+                            'jenis_ajuans'      => $idAjuan->jenis_ajuans
+                        ];
+                    // }
+                }
+                Kehadiran::insert($dataAbsensi);
+            }
             Ajuan::where('id', Crypt::decrypt($id))->update($data);
-            return ResponseFormatter::success([], 'Update data success');
+            return ResponseFormatter::success([
+                'selisihHari'   => $selisihHari
+            ], 'Update data success');
         } catch (Exception $error) {
             return ResponseFormatter::error([], 'Something went wrong');
         }

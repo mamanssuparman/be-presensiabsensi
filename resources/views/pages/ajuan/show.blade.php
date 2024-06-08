@@ -88,6 +88,9 @@
             } else {
                 $('#jenis_ajuans').html('Dinas Luar')
             }
+            if(e.statusajuan == "2" || e.statusajuan == "3"){
+                $('#button-proccess').html('')
+            }
             $('#statusajuan').val(e.statusajuan)
             $('#tanggal_ajuans').html(e.tanggal_awal)
             $('#tanggal_akhir').html(e.tanggal_akhir)
@@ -117,7 +120,8 @@
                     alasan: $('#alasantolak').val()
                 },
                 success: function(e){
-                    location.reload()
+                    console.log(e)
+                    // location.reload()
                 },
                 error: function(e){
                     console.log(e)
