@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kalender;
 use Illuminate\Http\Request;
+use App\Models\MasterAbsensi;
 use Yajra\DataTables\DataTables;
 use App\Helper\ResponseFormatter;
 
@@ -86,6 +87,11 @@ class KalenderController extends Controller
     function defaultkalender($id){
         Kalender::where('statusmasterkalenders', '!=', '2')->update(['statusmasterkalenders'=> '2']);
         Kalender::where('id', $id)->update(['statusmasterkalenders' => '1']);
+        $masterabsensi = MasterAbsensi::first();
+        if($masterabsensi){
+            $masterabsensi->masterkalenders_id = $id;
+            $masterabsensi->save();
+        }
         return ResponseFormatter::success([], 'Change kalender successfuly', 200);
     }
 }
