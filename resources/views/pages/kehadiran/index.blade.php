@@ -23,20 +23,22 @@
                 </h3>
             </div>
             <div class="box-body">
-                <table class="dt-responsive table table-bordered table-striped" id="tbl-kehadiran">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th></th>
-                            <th>Nama</th>
-                            <th>Tanggal Kehadiran</th>
-                            <th>Jam Masuk</th>
-                            <th>Jam Keluar</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="table-responsive">
+                    <table class="dt-responsive table table-bordered table-striped" id="tbl-kehadiran">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th></th>
+                                <th>Nama</th>
+                                <th>Tanggal Kehadiran</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </section>

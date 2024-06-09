@@ -24,18 +24,20 @@
                 <a href="{{ route('karyawan.create') }}" class="btn btn-primary btn-sm pull-right"><span class="fa fa-plus"></span> Add Karyawan</a>
             </div>
             <div class="box-body">
-                <table class="dt-responsive table table-bordered table-striped" id="tbl-karyawan">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>NUPTK</th>
-                            <th>Nama Lengkap</th>
-                            <th>Nomor Telephone</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="table-responsive">
+                    <table class="dt-responsive table table-bordered table-striped" id="tbl-karyawan">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>NUPTK</th>
+                                <th>Nama Lengkap</th>
+                                <th>Nomor Telephone</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </section>

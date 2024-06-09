@@ -24,6 +24,7 @@
             </div>
             <div class="box-body">
                 <div class="col-md-8 col-lg-8 col-sm-12">
+                    <div class="table-responsive">
                     <table class="dt-responsive table table-bordered table-striped" id="tbl-jabatan">
                         <thead>
                             <tr>
@@ -35,6 +36,7 @@
                             </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-12">
                     <h4><strong>Form Add / Update Jabatan</strong></h4>
