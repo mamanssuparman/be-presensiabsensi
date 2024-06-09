@@ -8,6 +8,7 @@ use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\MaterAbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,5 +76,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/{id}', [AjuanController::class, 'show'])->name('ajuan.show');
         Route::post('/{id}', [AjuanController::class, 'update'])->name('ajuan.update');
         Route::get('{id}/detail', [AjuanController::class, 'detail'])->name('ajuan.detail');
+    });
+
+    // Route Master Absensi
+    Route::prefix('absensi')->group(function(){
+        Route::get('/', [MaterAbsensiController::class, 'index'])->name('absensi.index');
+        Route::get('/getData', [MaterAbsensiController::class, 'getData'])->name('absensi.getData');
+        // Route::post('/', [MaterAbsensiController::class, 'store'])->name('absensi.store');
+        Route::get('/{id}', [MaterAbsensiController::class, 'show'])->name('absensi.show');
+        Route::post('/', [MaterAbsensiController::class, 'update'])->name('absensi.update');
+        Route::get('{id}/detail', [MaterAbsensiController::class, 'detail'])->name('absensi.detail');
     });
 });

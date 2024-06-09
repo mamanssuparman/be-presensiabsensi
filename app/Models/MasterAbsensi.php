@@ -11,7 +11,7 @@ class MasterAbsensi extends Model
     use HasFactory;
     protected $fillable = [
         'latitude',
-        'longitude',
+        'langitude',
         'keterangan',
         'jam_masuk',
         'jam_keluar',
