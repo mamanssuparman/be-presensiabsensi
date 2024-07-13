@@ -14,7 +14,7 @@ class KehadiranController extends Controller
         return view('pages.kehadiran.index');
     }
     function getData(){
-        $karyawan = Kehadiran::with(['user', 'masterabsensi'])->get();
+        $karyawan = Kehadiran::with(['user', 'masterabsensi'])->orderBy('created_at', 'DESC')->get();
 
         return DataTables::of($karyawan)
             ->addColumn('status', function($row){
