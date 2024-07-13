@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
@@ -86,5 +87,16 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/{id}', [MaterAbsensiController::class, 'show'])->name('absensi.show');
         Route::post('/', [MaterAbsensiController::class, 'update'])->name('absensi.update');
         Route::get('{id}/detail', [MaterAbsensiController::class, 'detail'])->name('absensi.detail');
+    });
+    // Route Master Absensi
+    Route::prefix('profile')->group(function(){
+        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/getData', [ProfileController::class, 'getData'])->name('profile.getData');
+        Route::post('/changeemail', [ProfileController::class, 'changeemail'])->name('profile.changeemail');
+        Route::post('/ubahpassword', [ProfileController::class, 'changepassword'])->name('profile.ubahpassword');
+        // Route::post('/', [ProfileController::class, 'store'])->name('profile.store');
+        // Route::get('/{id}', [ProfileController::class, 'show'])->name('profile.show');
+        Route::post('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('{id}/detail', [ProfileController::class, 'detail'])->name('profile.detail');
     });
 });

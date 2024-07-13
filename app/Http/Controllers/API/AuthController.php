@@ -55,7 +55,8 @@ class AuthController extends Controller
                 'nuptk'     => 'required|unique:users,nuptk,'.auth()->user()->id.',id',
                 'nama_lengkap'      => 'required',
                 'jenis_kelamin'     => 'required',
-                'alamat'            => 'required'
+                'alamat'            => 'required',
+                'photos'            => 'required|mimes:png,jpg,jpeg|max:1024'
             ]);
             $data = [
                     'nuptk'             => $request->nuptk,
@@ -63,6 +64,12 @@ class AuthController extends Controller
                     'jenis_kelamin'     => $request->jenis_kelamin,
                     'alamat'            => $request->alamat
                 ];
+            if($request->hasFile('photos')){
+                $files          = $request->file('photos');
+                $filename       = time().'.'.$files->getClientOriginalExtension();
+                $files->storeAs('public/users', $filename);
+                $data['foto']=$filename;
+            }
                 User::where('id', auth()->user()->id)->update($data);
                 return ResponseFormatter::success([],'Profile has been Updated');
         } catch (Exception $error) {

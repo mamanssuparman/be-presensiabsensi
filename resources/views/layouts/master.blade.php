@@ -14,13 +14,16 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ url('') }}/assets/bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ url('') }}/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet"
+        href="{{ url('') }}/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('') }}/assets/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ url('') }}/assets/dist/css/skins/_all-skins.min.css">
-
+    <link href="{{ url('') }}/assets/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="{{ url('') }}/assets/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="{{ url('') }}/assets/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -29,6 +32,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+    <div class="flash-data" data-flashdata="{{ session('pesan') }}"></div>
     <div class="wrapper">
 
         <header class="main-header">
@@ -73,6 +77,9 @@
     <script src="{{ url('') }}/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('') }}/assets/dist/js/demo.js"></script>
+    <script src="{{ url('') }}/assets/pnotify/dist/pnotify.js"></script>
+    <script src="{{ url('') }}/assets/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="{{ url('') }}/assets/pnotify/dist/pnotify.nonblock.js"></script>
     <!-- page script -->
     <script>
         $.ajaxSetup({
@@ -84,6 +91,56 @@
         var listRoutes = JSON.parse('{{ json_decode(listRoutes()) }}')
     </script>
     @stack('externaljs')
+    <script>
+        const flashData = $('.flash-data').data('flashdata');
+        if (flashData == "success") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Data berhasil di simpan',
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+        }
+        if (flashData == "ubah") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Data berhasil di perbaharui',
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+        }
+        if (flashData == "hapus") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Data berhasil di hapus',
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+        }
+        if (flashData == "gagalhapus") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Data tersebut masih berelasi / ada kaitan dengan data yang lain, sehingga tidak bisa di hapus.!',
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        }
+        if (flashData == "gagal") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Data gagal di perbaharui.!',
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        }
+        if (flashData == "warning") {
+            new PNotify({
+                title: 'Informasi',
+                text: 'Mohon periksa kembali data.!',
+                styling: 'bootstrap3'
+            });
+        }
+    </script>
 </body>
 
 </html>

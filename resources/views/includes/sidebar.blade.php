@@ -69,8 +69,8 @@
                     <i class="fa fa-qrcode"></i> <span>Absensi</span>
                 </a>
             </li>
-            <li>
-                <a href="">
+            <li class="{{ Route::currentRouteName() == 'profile.index' ? 'active' : '' }}">
+                <a href="{{ route('profile.index') }}">
                     <i class="fa fa-credit-card"></i> <span>Profile</span>
                 </a>
             </li>
