@@ -125,7 +125,7 @@ class AbsenController extends Controller
         $tanggal = date('Y-m-d');
         $data = User::with(['kehadiran'=> function($query) use ($tanggal){
             $query->where('tgl_absensi', $tanggal);
-        }])->get();
+        }, 'jabatan'])->get();
         return ResponseFormatter::success([$data], 'Get data successfuly');
     }
 
