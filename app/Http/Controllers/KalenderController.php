@@ -15,7 +15,7 @@ class KalenderController extends Controller
         return view('pages.kalender.index', compact('tahun'));
     }
     function getData(){
-        $jabatan = Kalender::query();
+        $jabatan = Kalender::orderBy('created_at', 'DESC')->get();
 
         return DataTables::of($jabatan)
             ->addColumn('action', function ($row) {
