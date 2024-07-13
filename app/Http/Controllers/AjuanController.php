@@ -17,7 +17,7 @@ class AjuanController extends Controller
         return view('pages.ajuan.index');
     }
     function getData(){
-        $jabatan = Ajuan::with(['user'])->get();
+        $jabatan = Ajuan::with(['user'])->orderBy('created_at', 'DESC')->get();
 
         return DataTables::of($jabatan)
             ->addColumn('action', function ($row) {
