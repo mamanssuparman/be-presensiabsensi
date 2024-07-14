@@ -55,8 +55,7 @@ class AuthController extends Controller
                 'nuptk'     => 'required|unique:users,nuptk,'.auth()->user()->id.',id',
                 'nama_lengkap'      => 'required',
                 'jenis_kelamin'     => 'required',
-                'alamat'            => 'required',
-                'photos'            => 'required|mimes:png,jpg,jpeg|max:1024'
+                'alamat'            => 'required'
             ]);
             $data = [
                     'nuptk'             => $request->nuptk,
@@ -65,6 +64,9 @@ class AuthController extends Controller
                     'alamat'            => $request->alamat
                 ];
             if($request->hasFile('photos')){
+                $request->validate([
+                    'photos'        => 'required|mimes:png,jpg|max:1024'
+                ]);
                 $files          = $request->file('photos');
                 $filename       = time().'.'.$files->getClientOriginalExtension();
                 $files->storeAs('public/users', $filename);
