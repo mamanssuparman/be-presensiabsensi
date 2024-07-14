@@ -68,7 +68,7 @@ class AuthController extends Controller
                 $files          = $request->file('photos');
                 $filename       = time().'.'.$files->getClientOriginalExtension();
                 $files->storeAs('public/users', $filename);
-                $data['foto']=$filename;
+                $data['fotos']=$filename;
             }
                 User::where('id', auth()->user()->id)->update($data);
                 return ResponseFormatter::success([],'Profile has been Updated');
@@ -93,6 +93,8 @@ class AuthController extends Controller
     public function fetchdata(Request $request){
         $bulan = date('m');
         $tahun = date('Y');
+        $bulanLalu = $bulan-1;
+        $totalHariEfektifBulanLalu = DB::table('masterkalenders')->where('bulan', $bulanLalu)->where('tahun', $tahun)->get();
         $tanggalSekarang = Carbon::today()->toDateString();
         $user = User::with(['jabatan'])->where('id', auth()->user()->id)->first();
         $masterkalender = Kalender::where('statusmasterkalenders', '1')->first();
@@ -178,7 +180,8 @@ class AuthController extends Controller
             'totalabsensiblalu' => $totalAbsensiBulanLalu,
             'totalsakitblalu'   => $totalSakitBulanLalu,
             'totalizinblalu'    => $totalIzinBulanLalu,
-            'totaldinasluarblalu'=> $totalDinasLuarBulanLalu
+            'totaldinasluarblalu'=> $totalDinasLuarBulanLalu,
+            'hariefektifbulanlalu'  => $totalHariEfektifBulanLalu
         ]);
     }
 
